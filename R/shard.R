@@ -48,7 +48,9 @@ partition_ <- function(data, groups, cluster = get_default_cluster()) {
       id = seq_len(n_groups),
       n = tabulate(group_id, n_groups)
     ))
-    groups$part_id <- floor(m * (cumsum(groups$n) - 1) / sum(groups$n) + 1)
+
+    # groups$part_id <- floor(m * (cumsum(groups$n) - 1) / sum(groups$n) + 1)
+    groups$part_id <- as.numeric(cut(groups$id, breaks = m))
     part_id <- groups$part_id[match(group_id, groups$id)]
   }
 
